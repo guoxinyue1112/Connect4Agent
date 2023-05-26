@@ -11,20 +11,20 @@
 using namespace std;
 #pragma once
 
-const double timelimit{1.7000 * CLOCKS_PER_SEC};
+const double timelimit = 1.7000 * CLOCKS_PER_SEC;
 
 clock_t startTime;
 class Node {
  private:
-  double profit{0.0};                  // 当前节点的胜率
-  int visit{0};                        // 总访问次数
+  double profit= 0.0;                  // 当前节点的胜率
+  int visit=0;                        // 总访问次数
   int ban_x, ban_y;                    // 被去除的点位
   int height;                          // 棋盘高度
   int width;                           // 棋盘宽度
-  int expandableNodeNum{0};            // 可扩展节点数
-  int position_x{-1}, position_y{-1};  // 落子位置
+  int expandableNodeNum=0;            // 可扩展节点数
+  int position_x=-1, position_y=-1;  // 落子位置
   bool expanded;                       // 是否已经扩展
-  bool chance{false};                  // 是否为己方棋子
+  bool chance=false;                  // 是否为己方棋子
 
  public:
   bool& get_expanded() { return expanded; }
@@ -41,10 +41,10 @@ class Node {
   int** board;  // 当前局面状况
   int* top;     // 当前每一列顶部状况
 
-  Node* parent{NULL};  // 父节点
+  Node* parent=NULL;  // 父节点
   Node** children;     // 子节点
 
-  int* expandable_nodes{NULL};  // 从当前节点开始可扩展节点的行号
+  int* expandable_nodes=NULL;  // 从当前节点开始可扩展节点的行号
 
   Node(int height, int width, int ban_x, int ban_y, int** board, int* top,
        int position_x = -1, int position_y = -1, bool chance = false,
@@ -89,7 +89,7 @@ class Node {
   }
 
   int must(bool chance) {
-    int x{0}, y{0}, player{int(chance)}, n{get_width()};
+    int x=0, y=0, player=int(chance), n=get_width();
     if (player == 1) {
       for (y = 0; y < n; ++y) {
         if (top[y] > 0) {
@@ -143,12 +143,12 @@ class Node {
   int connection(bool chance) {
     //! 先判断横竖，再判断斜着
 
-    bool connect_three{false};
+    bool connect_three=false;
     int i, k;
     int counter = 0;
     int left_x, left_y, right_x, right_y;
     for (int f = 0; f < expandableNodeNum; f++) {
-      int y{expandable_nodes[f]};
+      int y=expandable_nodes[f];
       int x = top[y] - 1;
       board[x][y] = int(chance) + 1;
       left_y = right_y = y;
@@ -248,7 +248,7 @@ class UCT {
  private:
   int width, height;    // 棋盘规格
   int ban_x, ban_y;     // 被去除的点位
-  bool expanded{true};  // 是否已经展开
+  bool expanded=true;  // 是否已经展开
   Node* root;
 
  public:
@@ -258,8 +258,8 @@ class UCT {
   const int& get_ban_x() { return ban_x; }
   const int& get_ban_y() { return ban_y; }
   bool& get_expanded() { return expanded; }
-  int* weight{NULL};
-  int full_weight{0};
+  int* weight=NULL;
+  int full_weight=0;
 
   UCT(int width, int height, int ban_x, int ban_y, int** board, const int* top,
       bool expanded = true)
@@ -287,9 +287,9 @@ class UCT {
   ~UCT() { delete this->root; delete[] this->weight; }
 
   Node* search() {
-    int count{0}, index{0};
+    int count=0, index=0;
     if ((index = root->must(root->get_chance())) != -1) {
-      int new_x{--root->top[index]};
+      int new_x=--root->top[index];
       root->board[new_x][index] = int(root->get_chance()) + 1;
       if (ban_x == new_x - 1 && ban_y == index) root->top[index]--;
       return root->children[index] =
@@ -312,7 +312,7 @@ class UCT {
   }
 
   Node* treePolicy(Node* node) {
-    bool terminate{false};
+    bool terminate=false;
     while (true) {
       if (!node->parent)
         terminate = false;
@@ -336,8 +336,8 @@ class UCT {
   }
 
   Node* defaultChild() {
-    double recorder{-30000000.0};
-    Node* default_child{NULL};
+    double recorder=-30000000.0;
+    Node* default_child=NULL;
     for (int i = 0; i < this->root->get_width(); ++i) {
       if (this->root->children[i]) {
         double current_score = (this->root->get_chance() ? -1 : 1) *
@@ -353,8 +353,8 @@ class UCT {
   }
 
   Node* bestChild(Node* node) {
-    double recorder{-30000000.0};
-    Node* best_node{NULL};
+    double recorder=-30000000.0;
+    Node* best_node=NULL;
     for (int i = 0; i < node->get_width(); ++i) {
       if (node->children[i]) {
         //! 0.707, 0.55
@@ -373,7 +373,7 @@ class UCT {
   }
 
   Node* expand(Node* node) {
-    int random_number{rand() % (node->get_expandableNodeNum())};
+    int random_number=rand() % (node->get_expandableNodeNum());
     int** board = new int*[height];
     for (int i = 0; i < height; ++i) {
       board[i] = new int[this->get_width()];
@@ -381,7 +381,7 @@ class UCT {
         board[i][j] = node->board[i][j];
       }
     }
-    int index{-1};
+    int index=-1;
     int* top = new int[this->get_width()];
     for (int i = 0; i < this->get_width(); ++i) {
       top[i] = node->top[i];
@@ -412,7 +412,7 @@ class UCT {
     }
     while (true) {
       int index = rand() % this->full_weight;
-      int count{0};
+      int count=0;
       for (int i = 0; i < width; ++i) {
         count += this->weight[i];
         if (count >= index) {
@@ -429,7 +429,7 @@ class UCT {
     for (int i = 0; i < width; ++i) {
       top[i] = node->top[i];
     }
-    bool chance{node->get_chance()};
+    bool chance=node->get_chance();
     int position_x = node->get_position_x();
     int position_y = node->get_position_y();
     for (int i = 0; i < height; ++i) {
@@ -438,7 +438,7 @@ class UCT {
         board[i][j] = node->board[i][j];
       }
     }
-    double profit{0};
+    double profit=0;
     if (chance && machineWin(position_x, position_y, height, width, board))
       profit = double(1);
     else if (!chance && userWin(position_x, position_y, height, width, board))
@@ -455,7 +455,7 @@ class UCT {
       //!
       while (true) {
           int index = rand() % this->full_weight;
-          int count{0};
+          int count=0;
           for (int i = 0; i < width; ++i) {
             count += this->weight[i];
             if (count > index) {
