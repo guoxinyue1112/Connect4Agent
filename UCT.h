@@ -15,7 +15,6 @@ class UCTree{
         UCTNode* _root;
         
         float start_time;
-        
 
         UCTree(const int _M, const int _N, const int* _top, int** _board, const int lastX, const int lastY, const int _noX, const int _noY);
    
@@ -26,10 +25,8 @@ class UCTree{
         void randomPlaceItem(int turn,int *x,int*y);
 
         int changeTurn(int originturn);
-        
 
         float defaultPolicy(UCTNode* hot);
-
     
         UCTNode* searchFromRoot();
 

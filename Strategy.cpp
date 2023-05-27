@@ -43,35 +43,12 @@ extern "C" Point *getPoint(const int M, const int N, const int *top, const int *
 		}
 	}
 
-	// for(int j = 0;j<N;++j){
-	// 	printf("%d ",top[j]);
-	// }
-	// cout << endl;
-	/*
-		根据你自己的策略来返回落子点,也就是根据你的策略完成对x,y的赋值
-		该部分对参数使用没有限制，为了方便实现，你可以定义自己新的类、.h文件、.cpp文件
-	*/
-	//Add your own code below
-	/*
-     //a naive example
-	for (int i = N-1; i >= 0; i--) {
-		if (top[i] > 0) {
-			x = top[i] - 1;
-			y = i;
-			break;
-		}
-	}
-    */
-
-	//cout << "begin getPoint" << endl;
-
-	//printf("B 落子位置为(%d, %d)\n",lastX,lastY);
    	UCTree uctree(M,N,top,board,lastX,lastY,noX,noY);
-	//cout << "before search" << endl;
+
    	UCTNode* p = uctree.searchFromRoot();
-	//cout << "end getPoint" << endl;
+	
 	x = p->s_x; y = p->s_y;
-	//printf("A 落子位置为(%d, %d)\n",x,y);
+	
 	/*
 		不要更改这段代码
 	*/

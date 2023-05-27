@@ -13,6 +13,4 @@ class Game{
 };
 
 
-
-
 #endif

@@ -25,66 +25,15 @@ bool UCTNode::new_pool = true;
         }
         UCTNode *UCTNode::bestChild()
         {
-            // cout << "in bestChild" <<endl;
             int ind = -1;
             double max_profit = -RAND_MAX;
             for (int i = 0; i < Game::N; ++i)
             {
-                // cout << "i is " << i<<endl;
-                
                 if (!children[i])
                     continue;
                 bool conti = false;
                 double raw_profit = 0;
-                // {
-                // Game::board[children[i]->s_x][children[i]->s_y] = 1;
-                // bool userwin = userWin(children[i]->s_x, children[i]->s_y, Game::M, Game::N, Game::board);
-                // Game::board[children[i]->s_x][children[i]->s_y] = 2;
-                // bool machinewin = machineWin(children[i]->s_x, children[i]->s_y, Game::M, Game::N, Game::board);
-                // Game::board[children[i]->s_x][children[i]->s_y] = 0;
-                // if (userwin || machinewin)
-                // {
-                //     return children[i];
-                // }
-                // if (children[i]->s_x - 1 >= 0 && children[i]->s_y >= 0 && !(children[i]->s_x - 1 == Game::noX && children[i]->s_y == Game::noY))
-                // {
-                //     if (this->turn == USER_TURN)
-                //     {
-                //         Game::board[children[i]->s_x][children[i]->s_y] = 2;
-                //         Game::board[children[i]->s_x - 1][children[i]->s_y] = 1;
-                //         if (userWin(children[i]->s_x - 1, children[i]->s_y, Game::M, Game::N, Game::board))
-                //             conti = true;
-                //     }
-                //     else
-                //     {
-                //         Game::board[children[i]->s_x][children[i]->s_y] = 1;
-                //         Game::board[children[i]->s_x - 1][children[i]->s_y] = 2;
-                //         if (machineWin(children[i]->s_x - 1, children[i]->s_y, Game::M, Game::N, Game::board))
-                //             conti = true;
-                //     }
-                //     Game::board[children[i]->s_x][children[i]->s_y] = 0;
-                //     Game::board[children[i]->s_x - 1][children[i]->s_y] = 0;
-                // }
-                // else if (children[i]->s_x - 2 >= 0 && children[i]->s_y >= 0 && children[i]->s_x - 1 == Game::noX && children[i]->s_y == Game::noY)
-                // {
-                //     if (turn == USER_TURN)
-                //     {
-                //         Game::board[children[i]->s_x][children[i]->s_y] = 2;
-                //         Game::board[children[i]->s_x - 2][children[i]->s_y] = 1;
-                //         if (userWin(children[i]->s_x - 2, children[i]->s_y, Game::M, Game::N, Game::board))
-                //             conti = true;
-                //     }
-                //     else
-                //     {
-                //         Game::board[children[i]->s_x][children[i]->s_y] = 1;
-                //         Game::board[children[i]->s_x - 2][children[i]->s_y] = 2;
-                //         if (machineWin(children[i]->s_x - 2, children[i]->s_y, Game::M, Game::N, Game::board))
-                //             conti = true;
-                //     }
-                //     Game::board[children[i]->s_x][children[i]->s_y] = 0;
-                //     Game::board[children[i]->s_x - 2][children[i]->s_y] = 0;
-                // }
-                // }
+
                 if (conti)
                     raw_profit = -50;
                 else
@@ -92,19 +41,15 @@ bool UCTNode::new_pool = true;
 
                     double Nv = children[i]->visit_times;
                     double Qv = children[i]->profit;
-                    // cout<<"Nv is "<<Nv<<endl;
-                    // cout<<"Qv is "<<Qv<<endl;
-                    // cout << "visit_times is (p)" << visit_times<<endl;
+
                     raw_profit = Qv / Nv + sqrt(2 * log(visit_times) / Nv) * UCT_C;
                 }
-                // cout << "profit rate = "<<raw_profit<<endl;
                 if (raw_profit > max_profit)
                 {
                     ind = i;
                     max_profit = raw_profit;
                 }
             }
-            // cout << "index is " << ind <<endl;
             return children[ind];
         }
 
@@ -177,19 +122,9 @@ bool UCTNode::new_pool = true;
             if(sx - 1 == Game::noX && sy == Game::noY)
                 --Game::top[sy];
             Game::board[sx][sy] = sw_turn;
-            // cout << "下了一步的棋盘是" <<endl;
-            // for(int i = 0;i<Game::M;++i){
-            //     for(int j = 0;j<Game::N;++j){
-            //         cout << Game::board[i][j]<< " ";
-            //     }
-            //     cout <<endl;
-            // }
-            // cout << endl;
-
             //生成节点
             children[sy] = newNode(sx,sy,sw_turn,this);
             swap(emp[index],emp[--expand_node_rest]);
-            //cout << "expand a new child" << endl;
             return children[sy];
         }
 
@@ -202,8 +137,6 @@ bool UCTNode::new_pool = true;
         void UCTNode::clear(){
             for(int i =0 ;i<Game::N;++i){
                 if(children[i]){
-                    // children[i]->clear();
-                    
                     children[i] = nullptr;
                 }
             }
@@ -215,7 +148,6 @@ bool UCTNode::new_pool = true;
 
             //必输的话惩罚
             //必胜的话奖励
-            //if(s_x ==-1&& s_y==-1) cout << "punish _root" <<endl;
             if(userWin(s_x,s_y,Game::M,Game::N,Game::board)){
                 this->profit = -1e3;
                 return true;
@@ -253,7 +185,6 @@ bool UCTNode::new_pool = true;
                         this->s_x = Game::top[i] - 1;
                         this->s_y = i;
                         //下必胜点
-                        //cout << "doom to win" <<endl;
                         return true;
                     }
                     Game::board[Game::top[i]-1][i] = 0;
@@ -266,7 +197,6 @@ bool UCTNode::new_pool = true;
                         this->s_x = Game::top[i] - 1;
                         this->s_y = i;
                         //堵必败点
-                        //cout << "avoid failure" <<endl;
                         return true;
                     }
                     Game::board[Game::top[i]-1][i] = 0;

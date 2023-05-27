@@ -55,7 +55,6 @@ using namespace std;
         // cout << "in treepolicy" <<endl;
         while((!hot->isEnd())){
             if(hot->canExpand()){
-                // cout << "out from expand"<<endl;
                 return hot->expand();
             }
             else{
@@ -64,22 +63,8 @@ using namespace std;
                 --Game::top[hot->s_y];
                 if (hot->s_x-1==Game::noX&&hot->s_y==Game::noY)
                     --Game::top[hot->s_y];
-                // cout << "bestchild的棋盘是" << endl;
-                // for (int i = 0; i < Game::M; ++i)
-                // {
-                //     for (int j = 0; j < Game::N; ++j)
-                //     {
-                //         cout << Game::board[i][j] << " ";
-                //     }
-                //     cout << endl;
-                // }
-                // cout << endl;
             }
         }
-        // cout << "out from end" <<endl;
-        // if (hot == _root){
-        //     cout << hot->isEnd() << ' '<<hot->is_end <<endl;
-        // }
         return hot;
     }
     
@@ -94,14 +79,6 @@ using namespace std;
         if(x-1 == Game::noX&& y == Game::noY){
             --Game::top[y];
         }
-        // cout << "randomplace下了一步的棋盘是" <<endl;
-        //     for(int i = 0;i<Game::M;++i){
-        //         for(int j = 0;j<Game::N;++j){
-        //             cout << Game::board[i][j]<< " ";
-        //         }
-        //         cout <<endl;
-        //     }
-        //     cout << endl;
         *sx = x;
         *sy = y;
     }
@@ -119,22 +96,15 @@ using namespace std;
         int sx = hot->s_x;
         int sy = hot->s_y;
         while(1){
-            //cout << "before judge profit" <<endl;
-            //if(!hot) cout << "hot is null" <<endl;
-            
             profit_state = judgeProfit(sx,sy);
             if (profit_state!=NOT_END)
                 break;
             turn = changeTurn(turn);
-            //cout << "test" << endl;
             randomPlaceItem(turn,&sx,&sy);
         }
-        //cout << "end randomPlace" <<endl;
         if (hot->turn == USER_TURN){
             profit_state = -profit_state;
         }
-
-        //cout << "out default policy" << endl;
         return profit_state;
     }
 
@@ -144,7 +114,6 @@ using namespace std;
         _root = new UCTNode(-1,-1,USER_TURN,nullptr);
         UCTNode::used_nodes = 0;
         if (_root->test_for_root()){
-            //cout << "return a root" <<endl;
             return _root;
         }
 
@@ -154,10 +123,6 @@ using namespace std;
             memcpy(origin_board[i],Game::board[i],Game::N*sizeof(int));
         }
         memcpy(origin_top,Game::top,Game::N*sizeof(int));
-        
-        
-        
-        //cout << "got root" << endl;
 
 
 
@@ -177,13 +142,10 @@ using namespace std;
             node->backUp(d_profit);
             
         }
-        //cout << "搜索了" << tst<<"轮"<<endl;
         return _root->bestChild();
     }
 
     UCTree::~UCTree(){
         _root->clear();
         delete _root;
-        //cout << "delete _root" <<endl;
-
     }
