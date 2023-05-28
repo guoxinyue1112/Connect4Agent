@@ -1,7 +1,6 @@
 #ifndef __UCTNODE__
 #define __UCTNODE__
 
-
 #include <iostream>
 #include <time.h>
 #include <math.h>
@@ -10,53 +9,42 @@
 #include "utils.h"
 #include <utility>
 
+class Node
+{
+public:
+    ;
+    int turn;
+    int s_x;
+    int s_y; // 落子位置,root 为-1、-1
+    int depth;
 
-class UCTNode{
-    public:;
-        int turn;
-        int s_x;
-        int s_y;//落子位置,root 为-1、-1
-        int depth;
+    int visit_times;
+    double profit;
 
-        int visit_times;
-        double profit;
+    int *emp;
+    int expand_node_rest;
+    int is_end;
 
+    Node *parent;
+    Node **children;
 
-        int* emp;
-        int expand_node_rest;
-        int is_end;
+    static Node **pool;
+    static bool new_pool;
+    static unsigned int used_nodes;
 
-        UCTNode* parent;
-        UCTNode** children;
+    Node(int s_x, int s_y, int turn, Node *parent = nullptr);
 
-        static UCTNode** pool;
-        static bool new_pool;
-        static unsigned int used_nodes;
+    bool isEnd();
 
-        UCTNode(int s_x,int s_y,int turn ,UCTNode* parent = nullptr);
+    bool canExpand();
 
-        
+    void fill(int sx, int sy, int turn, Node *parent);
 
+    static Node *newNode(int sx, int sy, int turn, Node *parent);
 
-        void backUp(double dp);
-        UCTNode* bestChild();
+    bool firstTest();
 
-        bool isEnd();     
-        bool canExpand();
-        void fillNode(int sx,int sy,int turn, UCTNode* parent);
-        
-
-        UCTNode* newNode(int sx,int sy, int turn ,UCTNode* parent);
-
-        UCTNode* expand();
-        bool punish();
-        
-        bool test_for_root();
-        
-
-        int nextTurn();
-        void clear();
-    
+    void clear();
 };
 
 #endif

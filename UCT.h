@@ -1,4 +1,4 @@
-#ifndef  __UCT__
+#ifndef __UCT__
 #define __UCT__
 #include "UCTNode.h"
 #include <iostream>
@@ -8,32 +8,35 @@
 #include "Judge.h"
 #include "utils.h"
 
+class UCT
+{
+public:
+    Node *root;
+
+    float start_time;
+
+    UCT(const int _M, const int _N, const int *_top, int **_board, const int _noX, const int _noY);
+
+    Node *uctSearch();
+
+    Node *treePolicy(Node *);
+
+    Node *expand(Node*);
+
+    Node *bestChild(Node*);
+
+    int defaultPolicy(Node *);
+
+    void backUp(Node*, int);
 
 
-class UCTree{
-    public:
-        UCTNode* _root;
-        
-        float start_time;
+    int profit(int x, int y);
 
-        UCTree(const int _M, const int _N, const int* _top, int** _board, const int lastX, const int lastY, const int _noX, const int _noY);
-   
-        int judgeProfit(int x, int y);
+    void move(int turn, int *x, int *y);
 
-        UCTNode* treePolicy(UCTNode* hot);
-    
-        void randomPlaceItem(int turn,int *x,int*y);
+    int nextTurn(int);
 
-        int changeTurn(int originturn);
-
-        float defaultPolicy(UCTNode* hot);
-    
-        UCTNode* searchFromRoot();
-
-        ~UCTree();
-
-
-       
+    ~UCT();
 };
 
 #endif

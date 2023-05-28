@@ -43,12 +43,17 @@ extern "C" Point *getPoint(const int M, const int N, const int *top, const int *
 		}
 	}
 
-   	UCTree uctree(M,N,top,board,lastX,lastY,noX,noY);
 
-   	UCTNode* p = uctree.searchFromRoot();
-	
-	x = p->s_x; y = p->s_y;
-	
+	/*
+		my strategy
+	*/
+	UCT uctree(M, N, top, board, noX, noY);
+
+	Node *p = uctree.uctSearch();
+
+	x = p->s_x;
+	y = p->s_y;
+
 	/*
 		不要更改这段代码
 	*/
