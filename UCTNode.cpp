@@ -114,20 +114,20 @@ bool Node::firstTest()
             Game::board[Game::top[i] - 1][i] = 0;
         }
     }
-    for (int i = 0; i < Game::N; ++i)
-    {
-        if (Game::top[i])
-        {
-            Game::board[Game::top[i] - 1][i] = USER_TURN;
-            if (userWin(Game::top[i] - 1, i, Game::M, Game::N, Game::board))
-            {
-                this->s_x = Game::top[i] - 1;
-                this->s_y = i;
-                // 堵必败点
-                return true;
-            }
-            Game::board[Game::top[i] - 1][i] = 0;
-        }
-    }
+    // for (int i = 0; i < Game::N; ++i)
+    // {
+    //     if (Game::top[i])
+    //     {
+    //         Game::board[Game::top[i] - 1][i] = USER_TURN;
+    //         if (userWin(Game::top[i] - 1, i, Game::M, Game::N, Game::board))
+    //         {
+    //             this->s_x = Game::top[i] - 1;
+    //             this->s_y = i;
+    //             // 堵必败点
+    //             return true;
+    //         }
+    //         Game::board[Game::top[i] - 1][i] = 0;
+    //     }
+    // }
     return false;
 }
