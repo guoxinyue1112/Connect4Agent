@@ -51,12 +51,8 @@ Node *UCT::uctSearch()
     }
     memcpy(origin_top, Game::top, Game::N * sizeof(int));
 
-    int tst = 0;
-
     while ((clock() + 0.0) / CLOCKS_PER_SEC - this->start_time < TIME_LIMIT)
     {
-        ++tst;
-
         for (int i = 0; i < Game::M; ++i)
         {
             memcpy(Game::board[i], origin_board[i], Game::N * sizeof(int));

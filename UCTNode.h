@@ -15,7 +15,6 @@ public:
     int turn;
     int s_x;
     int s_y; // 落子位置,root 为-1、-1
-    int depth;
 
     int visit_times;
     double profit;

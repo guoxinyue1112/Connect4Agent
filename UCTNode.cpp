@@ -45,12 +45,6 @@ void Node::fill(int sx, int sy, int turn, Node *parent)
 {
     visit_times = 0;
     profit = 0;
-    if (parent)
-    {
-        depth = parent->depth + 1;
-    }
-    else
-        depth = 0;
     s_x = sx;
     expand_node_rest = 0;
     is_end = -1;
