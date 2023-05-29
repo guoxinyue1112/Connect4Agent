@@ -4,12 +4,13 @@ using namespace std;
 
 UCT::UCT(const int _M, const int _N, const int *_top, int **_board, const int _noX, const int _noY)
 {
+    start_time = (clock() + 0.0) / CLOCKS_PER_SEC;
+    
     Game::M = _M;
     Game::N = _N;
     Game::noX = _noX;
     Game::noY = _noY;
 
-    start_time = (clock() + 0.0) / CLOCKS_PER_SEC;
 
     if (Game::board_is_new)
     {
