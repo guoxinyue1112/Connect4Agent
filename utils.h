@@ -1,7 +1,7 @@
 #ifndef utils_
 #define utils_
 
-#define TIME_LIMIT 2.7 // 时间限制
+#define TIME_LIMIT 2.6 // 时间限制
 
 #define USER_TURN 1 // 谁的轮次
 #define MACHINE_TURN 2
@@ -13,6 +13,6 @@
 #define NOT_END 2 // 未结束状态
 #define UCT_C 0.7 // 收益计算常数
 
-#define MAX_POOL 5000000
+#define POOL_SIZE 5000000
 
 #endif

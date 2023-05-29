@@ -29,7 +29,6 @@ public:
 
     void backUp(Node*, int);
 
-
     int profit(int x, int y);
 
     void move(int turn, int *x, int *y);

@@ -24,7 +24,7 @@ UCT::UCT(const int _M, const int _N, const int *_top, int **_board, const int _n
     if (Node::new_pool)
     {
         Node::new_pool = false;
-        Node::pool = new Node *[MAX_POOL];
+        Node::pool = new Node *[POOL_SIZE];
     }
     for (int i = 0; i < Game::M; ++i)
     {

@@ -7,7 +7,6 @@
 #include <cstring>
 #include "Judge.h"
 #include "utils.h"
-#include <utility>
 
 class Node
 {
@@ -33,14 +32,13 @@ public:
     static unsigned int used_nodes;
 
     Node(int s_x, int s_y, int turn, Node *parent = nullptr);
+    static Node *newNode(int sx, int sy, int turn, Node *parent);
 
     bool isEnd();
 
     bool canExpand();
 
     void fill(int sx, int sy, int turn, Node *parent);
-
-    static Node *newNode(int sx, int sy, int turn, Node *parent);
 
     bool firstTest();
 
