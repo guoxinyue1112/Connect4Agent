@@ -2,7 +2,7 @@
 #include "Game.h"
 using namespace std;
 
-UCT::UCT(const int _M, const int _N, const int *_top, int **_board, const int _noX, const int _noY)
+UCT::UCT(const int _M, const int _N, const int *_top, int **_board, const int _lastX, const int _lastY, const int _noX, const int _noY)
 {
     start_time = (clock() + 0.0) / CLOCKS_PER_SEC;
     
@@ -12,9 +12,9 @@ UCT::UCT(const int _M, const int _N, const int *_top, int **_board, const int _n
     Game::noY = _noY;
 
 
-    if (Game::board_is_new)
+    if (Game::new_game)
     {
-        Game::board_is_new = false;
+        Game::new_game = false;
         Game::board = new int *[Game::M];
         Game::top = new int[Game::N];
         for (int i = 0; i < Game::M; ++i)

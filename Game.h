@@ -10,7 +10,7 @@ public:
     static int noY;
     static int **board;
     static int *top;
-    static bool board_is_new;
+    static bool new_game;
 };
 
 #endif

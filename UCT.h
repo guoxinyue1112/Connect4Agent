@@ -15,7 +15,7 @@ public:
 
     float start_time;
 
-    UCT(const int _M, const int _N, const int *_top, int **_board, const int _noX, const int _noY);
+    UCT(const int _M, const int _N, const int *_top, int **_board, const int _lastX, const int _lastY, const int _noX, const int _noY);
 
     Node *uctSearch();
 
@@ -29,7 +29,7 @@ public:
 
     void backUp(Node*, int);
 
-    int profit(int x, int y);
+    int profit(int, int);
 
     void move(int turn, int *x, int *y);
 

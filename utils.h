@@ -1,7 +1,7 @@
 #ifndef utils_
 #define utils_
 
-#define TIME_LIMIT 2.75 // 时间限制
+#define TIME_LIMIT 2.8 // 时间限制
 
 #define USER_TURN 1 // 谁的轮次
 #define MACHINE_TURN 2

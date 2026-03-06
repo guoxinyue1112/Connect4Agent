@@ -47,7 +47,7 @@ extern "C" Point *getPoint(const int M, const int N, const int *top, const int *
 	/*
 		my strategy
 	*/
-	UCT uctree(M, N, top, board, noX, noY);
+	UCT uctree(M, N, top, board,lastX, lastY, noX, noY);
 
 	Node *p = uctree.uctSearch();
 
